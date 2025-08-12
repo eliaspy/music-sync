@@ -1,0 +1,6 @@
+.env
+.cache
+yt_headers/*
+**/__pycache__
+venv
+__pycache__

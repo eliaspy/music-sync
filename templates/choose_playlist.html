@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sincronizar playlist Spotify → Tidal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>🎵 Selecciona la playlist de Spotify a sincronizar contra Tidal</h2>
+  <form action="/sync/perform" method="POST">
+    <label for="spotify_playlist_id">Playlist:</label>
+    <select name="spotify_playlist_id" required>
+      {% for name, id in playlists %}
+        <option value="{{ id }}">{{ name }}</option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <button type="submit">🔄 Sincronizar</button>
+  </form>
+  <br>
+  <a href="/">⬅ Volver al inicio</a>
+</body>
+</html>

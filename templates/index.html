@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Music Sync App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <form action="{{ url_for('logout') }}" method="get" style="display:inline;">
+  <button type="submit">Cerrar sesión</button>
+  </form>
+ 
+  <h1>🎵 Music Sync App</h1>
+
+  <h2>Autenticaciones:</h2>
+
+  {% if logged_tidal %}
+    <p>✅ Conectado a Tidal</p>
+  {% else %}
+    <a href="/login/tidal"><button>Login con Tidal</button></a>
+  {% endif %}
+
+  {% if logged_spotify %}
+    <p>✅ Conectado a Spotify</p>
+  {% else %}
+    <a href="/login/spotify"><button>Login con Spotify</button></a>
+  {% endif %}
+
+  <!-- Sync Button -->
+  {% if logged_spotify and logged_tidal %}
+    <form action="/sync/choose-playlist" method="POST">
+      <button type="submit">Sincronizar Playlist de Spotify ➡️ Tidal</button>
+    </form>
+  {% else %}
+    <p>⚠️ Debes autenticarte en Spotify y Tidal para sincronizar.</p>
+  {% endif %}
+
+ 
+
+  <!-- YouTube Music -->
+  <form action="/login/youtube" method="POST" enctype="multipart/form-data">
+    <label>Subí tu headers_auth.json:</label>
+    <input type="file" name="headers_file" />
+    <button type="submit">Login con YouTube Music</button>
+  </form>
+
+ 
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        <br>
+          <li class="flash-message">{{ message }}</li>
+        {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+</body>
+</html>
